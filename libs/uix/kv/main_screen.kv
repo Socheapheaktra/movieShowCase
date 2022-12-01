@@ -1,0 +1,81 @@
+#: import AsyncImage kivy.uix.image
+<MainScreen>:
+    id: main_win
+    orientation: "vertical"
+
+    MDTopAppBar:
+        id: toolbar
+        title: "MrTra Movie"
+
+    ScreenManager:
+        id: scrn_mngr
+
+        Screen:
+            id: main_scrn
+            name: "main_scrn"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                MDBoxLayout:
+                    padding: 50, 20
+                    size_hint_y: None
+                    height: self.minimum_height
+                    MDTextField:
+                        id: search_fld
+                        mode: "rectangle"
+                        hint_text: "Search"
+                        icon_left: "magnify"
+                        adaptive_height: True
+                        on_focus: self.icon_right = "close" if self.focus else ""
+                        on_text_validate:
+                            root.on_search(self.text)
+
+                ScrollView:
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        spacing: 20
+
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            adaptive_height: True
+                            MDLabel:
+                                text: "Action"
+                                padding: 100, 20
+                                font_style: "Subtitle1"
+                                adaptive_height: True
+                            ScrollView:
+                                do_scroll_x: True
+                                MDBoxLayout:
+                                    id: content_action
+                                    padding: 50, 50
+                                    spacing: 50
+                                    adaptive_height: True
+
+                        ScrollView:
+                            on_scroll_stop: root.refresh_callback(self.scroll_y)
+                            MDGridLayout:
+                                id: content
+                                cols: 3
+                                padding: 50, 50
+                                spacing: 50
+                                adaptive_height: True
+
+        Screen:
+            id: detail_scrn
+            name: "detail_scrn"
+
+
+        Screen:
+            id: search_scrn
+            name: "search_scrn"
+
+            ScrollView:
+                MDGridLayout:
+                    id: search_content
+                    cols: 3
+                    padding: 50, 50
+                    spacing: 50
+                    adaptive_height: True
+
+
